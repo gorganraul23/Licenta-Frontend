@@ -1,0 +1,30 @@
+.right-side {
+  flex: 1 1 auto;
+}
+
+mat-toolbar{
+  min-height: 9%;
+  background-color: black;
+  color: white;
+  align-content: center;
+}
+
+.circle{
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  background: white;
+  color: black;
+  text-align: center;
+  border : 3px solid #0051CB;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+}
+
+.initials{
+  padding-top: 45%;
+}
+
