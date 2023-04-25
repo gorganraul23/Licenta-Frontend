@@ -3,7 +3,7 @@ import {environments} from "../../environments/environments";
 import {JwtHelperService} from "@auth0/angular-jwt";
 import {HttpClient} from "@angular/common/http";
 import {Observable, tap} from "rxjs";
-import {User} from "../nav-bar/nav-bar.component";
+import {User} from "../main-app/nav-bar/nav-bar.component";
 
 export interface UserCredentials {
   email: string;

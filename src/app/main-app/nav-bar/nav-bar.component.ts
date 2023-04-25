@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
-import {LoginService} from "../services/login.service";
+import {LoginService} from "../../services/login.service";
 import {Router} from "@angular/router";
-import {idGetter} from "../app.module";
+import {idGetter} from "../../app.module";
 
 export interface User {
   name: string,
@@ -38,12 +38,17 @@ export class NavBarComponent {
     return name?.split(" ").map((n) => n[0]).join("");
   }
 
-  onClickLogout() {
+  onClickLogoutBtn() {
     this.service.logout();
-    this.router.navigate(['login'])
+    this.service.logout();
+    this.router.navigate(['login']);
   }
 
-  onClickProfile() {
-    this.router.navigate(['profile'])
+  onClickProfileBtn() {
+    this.router.navigate(['profile']);
+  }
+
+  onClickHomeBtn() {
+    this.router.navigate(['home']);
   }
 }

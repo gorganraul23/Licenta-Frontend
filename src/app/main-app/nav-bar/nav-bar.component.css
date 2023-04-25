@@ -1,0 +1,30 @@
+.right-side {
+  flex: 1 1 auto;
+}
+
+mat-toolbar {
+  min-height: 9%;
+  background-color: black;
+  color: white;
+  align-content: center;
+}
+
+.account-btn {
+  background-color: #0051CB;
+  border-radius: 10px;
+  font-size: 20px;
+  font-family: "Helvetica", sans-serif;
+  min-height: 60%;
+}
+
+.account-btn:hover {
+  background-color: #130888
+}
+
+.btn {
+  font-size: 20px;
+  font-family: "Calibri", sans-serif;
+  margin-right: 2%;
+}
+
+
