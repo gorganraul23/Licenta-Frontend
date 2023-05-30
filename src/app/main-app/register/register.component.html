@@ -6,29 +6,33 @@
   <div class="right">
     <div class="form-container">
       <div class="welcome">
-        <label>Bine ai revenit!</label>
+        <label>Bine ai venit!</label>
       </div>
       <div class="title">
-        <label>Intra in cont</label>
+        <label>Creaza-ti un cont</label>
       </div>
 
       <div class="form">
         <form>
+          <label class="form-label" for="name">Nume</label>
+          <input type="text" id="name" name="name" [(ngModel)]="this.user.name">
+
           <label class="form-label" for="email">Email</label>
           <input type="text" id="email" name="email" [(ngModel)]="this.user.email">
 
           <label class="form-label" for="password">Password</label>
           <input type="password" id="password" name="password" [(ngModel)]="this.user.password">
+
           <div class="btn-div">
-            <button class="button" (click)="login()">Continua</button>
+            <button class="button" (click)="register()">Continua</button>
           </div>
 
         </form>
       </div>
 
       <div class="btn-div">
-        <label class="form-label">Nu ai un cont? Creeaza un <a href="/register">cont</a></label>
-      </div>
+      <label class="form-label">Ai deja cont? Intra in <a href="/login">cont</a></label>
+    </div>
 
     </div>
   </div>

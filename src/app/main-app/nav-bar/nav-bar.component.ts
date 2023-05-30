@@ -22,16 +22,12 @@ export class NavBarComponent {
   }
 
   ngOnInit(): void {
-    if(idGetter()){
+    if (idGetter()) {
       this.service.getUserById(sessionStorage.getItem('user_id')!).subscribe(res => {
         this.user = res;
         console.log(this.user);
       })
     }
-    else {
-
-    }
-
   }
 
   getInitials = (name: string | undefined) => {
@@ -39,7 +35,6 @@ export class NavBarComponent {
   }
 
   onClickLogoutBtn() {
-    this.service.logout();
     this.service.logout();
     this.router.navigate(['login']);
   }
@@ -50,5 +45,9 @@ export class NavBarComponent {
 
   onClickHomeBtn() {
     this.router.navigate(['home']);
+  }
+
+  onClickSessionsBtn() {
+    this.router.navigate(['sessions']);
   }
 }

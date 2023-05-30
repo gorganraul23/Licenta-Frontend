@@ -1,3 +1,23 @@
 .container{
   height: 91%;
 }
+
+.chart{
+  max-height: 70%;
+  max-width: 99%;
+  display: inline;
+}
+
+#canvas-container {
+  width: 100%;
+  text-align:center;
+}
+
+.top{
+  color: black;
+  font-weight: 900;
+  font-size: 2rem;
+  text-align: center;
+  padding-top: 3%;
+  padding-bottom: 4%;
+}

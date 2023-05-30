@@ -1,0 +1,30 @@
+.mat-mdc-snack-bar-container{
+  margin-top: 20px;
+}
+
+.container{
+  min-height: 100%;
+  min-width: 100%;
+  justify-content: center;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: center;
+}
+
+.message{
+  font-size: 1.2rem;
+  height: 24px;
+  font-weight: 700;
+  align-content: center;
+}
+
+.mat-icon{
+  height: 100%;
+  width: 100%;
+  padding-right: 10px;
+  padding-top: 3px;
+}
+
+.material-icons{
+  font-size: 16px;
+}

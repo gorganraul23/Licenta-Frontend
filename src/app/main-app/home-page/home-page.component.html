@@ -1,5 +1,10 @@
 <div class="container">
-  <p>Date in timp real</p>
+  <p class="top">Date in timp real</p>
 
+    <canvas baseChart class="chart"
+            [data]="lineChartData"
+            [options]="lineChartOptions"
+            [type]="lineChartType">
+    </canvas>
 
 </div>
