@@ -22,6 +22,7 @@ import {SessionStatisticsComponent} from "./main-app/sessions/session-statistics
 import {DatePipe} from "@angular/common";
 import {ToastComponent} from "./toast/toast.component";
 import {RegisterComponent} from "./main-app/register/register.component";
+import {DeleteSessionComponent} from "./main-app/sessions/delete-session/delete-session.component";
 
 export function tokenGetter() {
   return sessionStorage.getItem('access_token');
@@ -44,6 +45,7 @@ export function idGetter() {
     SessionStatisticsComponent,
     ToastComponent,
     RegisterComponent,
+    DeleteSessionComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,10 @@
+<div class="container">
+  <h1 mat-dialog-title class="delete-user-dialog-title">Sterge sesiunea</h1>
+  <div class="dialog-content">
+    Sigur doresti sa stergi sesiunea?
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button mat-dialog-close="true" class="cancel-button" (click)="cancel()">Anuleaza</button>
+    <button mat-raised-button (click)="deleteSession()" class="delete-user-button">Sterge</button>
+  </div>
+</div>

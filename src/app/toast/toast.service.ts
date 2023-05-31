@@ -16,7 +16,7 @@ export class ToastService {
         message: displayMessage,
         type: messageType
       },
-      duration: 33000,
+      duration: 3000,
       horizontalPosition: logged? "right" : "center",
       verticalPosition: "top",
       panelClass: messageType

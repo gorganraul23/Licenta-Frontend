@@ -15,11 +15,16 @@ export interface Session{
 export class SessionsService {
 
   apiUrl = environments.apiUrl;
+  session = environments.apiEndpoints.session;
 
   constructor(private http: HttpClient) { }
 
   getSessions(): Observable<Session[]>{
-    const sessions = environments.apiEndpoints.session;
-    return this.http.get<Session[]>(this.apiUrl + sessions);
+    return this.http.get<Session[]>(this.apiUrl + this.session);
   }
+
+  deleteSession(id: string): Observable<null> {
+    return this.http.delete<null>(this.apiUrl + this.session + '/' + id + '/');
+  }
+
 }
