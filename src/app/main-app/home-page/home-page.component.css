@@ -1,8 +1,8 @@
-.container{
+.container {
   height: 91%;
 }
 
-.chart{
+.chart {
   max-height: 70%;
   max-width: 99%;
   display: inline;
@@ -10,10 +10,10 @@
 
 #canvas-container {
   width: 100%;
-  text-align:center;
+  text-align: center;
 }
 
-.top{
+.top {
   color: black;
   font-weight: 900;
   font-size: 2rem;

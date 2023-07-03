@@ -4,12 +4,13 @@ import {JwtHelperService} from "@auth0/angular-jwt";
 import {HttpClient} from "@angular/common/http";
 import {Observable, tap} from "rxjs";
 import {User} from "../main-app/nav-bar/nav-bar.component";
-import {ToastService} from "../toast/toast.service";
+import {ToastService} from "../main-app/toast/toast.service";
 
 export interface UserCredentials {
   email: string;
   password: string;
 }
+
 export interface UserCreation {
   name: string;
   email: string;
@@ -32,7 +33,7 @@ export class LoginService {
     const loginUrl = environments.apiEndpoints.login;
     return this.http.post<any>(this.apiUrl + loginUrl, {email, password}).pipe(
       tap(response => {
-        if(response.error)
+        if (response.error)
           this.toast.showToast('Credentiale incorecte', 'error')
         else {
           sessionStorage.setItem('access_token', response.access_token);
@@ -65,11 +66,6 @@ export class LoginService {
 
   isAuthenticated() {
     return !!this.getToken();
-  }
-
-  register(body: UserCreation): Observable<User>{
-    const register = environments.apiEndpoints.register;
-    return this.http.post<User>(this.apiUrl + register, body);
   }
 
 }

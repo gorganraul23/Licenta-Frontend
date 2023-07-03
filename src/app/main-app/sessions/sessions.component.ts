@@ -1,9 +1,9 @@
 import {Component} from '@angular/core';
 import {Session, SessionsService} from "../../services/sessions.service";
 import {Router} from "@angular/router";
-import {DatePipe} from '@angular/common';
+import {DatePipe, DecimalPipe} from '@angular/common';
 import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
-import {ToastService} from "../../toast/toast.service";
+import {ToastService} from "../toast/toast.service";
 import {DeleteSessionComponent} from "./delete-session/delete-session.component";
 
 @Component({
@@ -13,16 +13,17 @@ import {DeleteSessionComponent} from "./delete-session/delete-session.component"
 })
 export class SessionsComponent {
 
-  displayedColumns: string[] = ['name', 'start_time', 'end_time', 'delete'];
+  displayedColumns: string[] = ['name', 'start_time', 'end_time', 'reference', 'delete'];
   dataSource: Session[] = [];
 
-  constructor(private service: SessionsService, private router: Router,
+  constructor(private service: SessionsService, private router: Router, private decimalPipe: DecimalPipe,
               private datePipe: DatePipe, private dialog: MatDialog, private toast: ToastService) {
   }
 
   ngOnInit(): void {
     this.service.getSessions().subscribe(res => {
       this.dataSource = res;
+      console.log(res);
     })
   }
 
@@ -33,6 +34,11 @@ export class SessionsComponent {
   formatDate(date: Date): string {
     const formattedDate = this.datePipe.transform(date, 'dd-MM-yyyy hh:mm:ss');
     return formattedDate!!;
+  }
+
+  formatReference(reference: number): string {
+    const floatNumber = this.decimalPipe.transform(reference!!, '1.2-2');
+    return floatNumber!!
   }
 
 

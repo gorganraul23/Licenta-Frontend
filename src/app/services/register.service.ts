@@ -3,7 +3,7 @@ import {tap} from "rxjs";
 import {environments} from "../../environments/environments";
 import {HttpClient} from "@angular/common/http";
 import {Router} from "@angular/router";
-import {ToastService} from "../toast/toast.service";
+import {ToastService} from "../main-app/toast/toast.service";
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +20,7 @@ export class RegisterService {
     console.log(name, email, password)
     return this.http.post<any>(this.apiUrl + this.registerUrl, {name, email, password}).pipe(
       tap(response => {
-        if(response.error)
+        if (response.error)
           this.toast.showToast('Email deja folosit', 'error')
         else {
           this.router.navigate(['login']);

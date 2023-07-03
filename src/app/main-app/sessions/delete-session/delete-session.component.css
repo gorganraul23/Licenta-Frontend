@@ -1,8 +1,8 @@
-.container{
+.container {
   padding: 20px;
 }
 
-.delete-user-dialog-title{
+.delete-user-dialog-title {
   color: #294166;
   display: flex;
   justify-content: center;
@@ -19,11 +19,11 @@
   width: 125px;
 }
 
-.cancel-button{
+.cancel-button {
   color: #294166;
 }
 
-.dialog-content{
+.dialog-content {
   color: #3E5F8D;
   justify-content: center;
   display: flex;

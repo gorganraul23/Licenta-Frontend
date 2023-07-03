@@ -7,7 +7,7 @@ import {SessionsService} from "../../../services/sessions.service";
   templateUrl: './delete-session.component.html',
   styleUrls: ['./delete-session.component.css']
 })
-export class DeleteSessionComponent implements OnInit{
+export class DeleteSessionComponent implements OnInit {
 
   id: string = ''
 

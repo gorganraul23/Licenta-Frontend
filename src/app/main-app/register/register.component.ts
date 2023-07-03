@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {UserCreation} from "../../services/login.service";
 import {Router} from "@angular/router";
-import {ToastService} from "../../toast/toast.service";
+import {ToastService} from "../toast/toast.service";
 import {RegisterService} from "../../services/register.service";
 
 @Component({

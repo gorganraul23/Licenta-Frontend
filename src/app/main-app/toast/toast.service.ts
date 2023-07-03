@@ -10,14 +10,14 @@ export class ToastService {
   constructor(private snackBar: MatSnackBar) {
   }
 
-  showToast(displayMessage: string, messageType: 'error' | 'warning' | 'info', logged:boolean = false) {
+  showToast(displayMessage: string, messageType: 'error' | 'warning' | 'info', logged: boolean = false) {
     this.snackBar.openFromComponent(ToastComponent, {
       data: {
         message: displayMessage,
         type: messageType
       },
       duration: 3000,
-      horizontalPosition: logged? "right" : "center",
+      horizontalPosition: logged ? "right" : "center",
       verticalPosition: "top",
       panelClass: messageType
     });

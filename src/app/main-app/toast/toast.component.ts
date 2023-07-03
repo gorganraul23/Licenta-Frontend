@@ -1,4 +1,4 @@
-import {Component, Inject, ViewEncapsulation} from '@angular/core';
+import {Component, Inject} from '@angular/core';
 import {MAT_SNACK_BAR_DATA, MatSnackBarRef} from "@angular/material/snack-bar";
 
 
@@ -10,7 +10,7 @@ import {MAT_SNACK_BAR_DATA, MatSnackBarRef} from "@angular/material/snack-bar";
 export class ToastComponent {
 
   constructor(@Inject(MAT_SNACK_BAR_DATA) public data: any,
-              public snackBarRef: MatSnackBarRef<ToastComponent>) { }
-
+              public snackBarRef: MatSnackBarRef<ToastComponent>) {
+  }
 
 }

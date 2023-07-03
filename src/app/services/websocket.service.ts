@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Observable} from "rxjs";
 import {environments} from "../../environments/environments";
 
@@ -10,9 +10,10 @@ export class WebsocketService {
   private socket?: WebSocket;
   websocketUrl = environments.websocketUrl;
 
-  constructor() { }
+  constructor() {
+  }
 
-  connect(): Observable<any>{
+  connect(): Observable<any> {
     this.socket = new WebSocket(this.websocketUrl);
 
     return new Observable((observer) => {

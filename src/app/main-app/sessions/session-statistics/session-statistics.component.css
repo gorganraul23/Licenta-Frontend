@@ -1,0 +1,17 @@
+.container {
+  display: flex;
+  justify-content: space-around;
+  max-height: 87%;
+  min-height: 87%;
+  background-color: rgba(228,228,228,0.35);
+  padding: 1%;
+}
+
+.column {
+  flex-basis: calc(49%);
+  background-color: white;
+}
+
+.card-content {
+  padding: 2%;
+}

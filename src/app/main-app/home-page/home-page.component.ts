@@ -1,7 +1,7 @@
 import {Component, ViewChild} from '@angular/core';
-import {ChartConfiguration, ChartEvent, ChartType} from 'chart.js';
+import {ChartConfiguration, ChartType} from 'chart.js';
 import {BaseChartDirective} from 'ng2-charts';
-import {ToastService} from "../../toast/toast.service";
+import {ToastService} from "../toast/toast.service";
 import {WebsocketService} from "../../services/websocket.service";
 
 @Component({
@@ -21,7 +21,7 @@ export class HomePageComponent {
     this.websocket.connect().subscribe(
       (event) => {
         console.log('WebSocket event:', event);
-        if(event.type == 'message') {
+        if (event.type == 'message') {
           const data = event.data;
           this.updateChart(data.hr, data.hrv);
         }
@@ -33,15 +33,14 @@ export class HomePageComponent {
 
   }
 
-  updateChart(hr: number, hrv: number){
+  updateChart(hr: number, hrv: number) {
 
-    if(this.lineChartData.datasets[0].data.length == 120){
+    if (this.lineChartData.datasets[0].data.length == 120) {
       this.lineChartData.datasets[0].data.shift();
       this.lineChartData.datasets[0].data.push(hr);
       this.lineChartData.datasets[1].data.shift();
       this.lineChartData.datasets[1].data.push(hrv);
-    }
-    else {
+    } else {
       this.lineChartData.datasets[0].data.push(hr);
       this.lineChartData.datasets[1].data.push(hrv);
     }
@@ -78,29 +77,13 @@ export class HomePageComponent {
   };
 
   public lineChartOptions: ChartConfiguration['options'] = {
-    elements: {
-      line: {
-        tension: 1
-      }
-    },
+    elements: {line: {tension: 1}},
     scales: {
-      y: {
-        title: {
-          display: true,
-          text: 'value'
-        }
-      },
-      x: {
-        title: {
-          display: true,
-          text: 'time (s)'
-        }
-      }
+      y: {title: {display: true, text: 'value'}},
+      x: {title: {display: true, text: 'time (s)'}}
     },
 
-    plugins: {
-      legend: {display: true},
-    }
+    plugins: {legend: {display: true},}
   };
 
   generateLabels(length: number): number[] {
@@ -108,13 +91,6 @@ export class HomePageComponent {
     for (let i = 1; i <= length; i++)
       labels.push(i);
     return labels;
-  }
-
-  generateValues() {
-    let data: number[] = [];
-    for (let i = 1; i <= 120; i++)
-      data.push(0);
-    return data;
   }
 
   ngOnDestroy(): void {

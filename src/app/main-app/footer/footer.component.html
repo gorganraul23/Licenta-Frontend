@@ -1,39 +1,22 @@
 <div class="container">
-  <mat-grid-list cols="3" [style.background]="'black'">
-
-    <mat-grid-tile>
-      <div class="management">
-        <p class="item">Management </p>
-        <p class="item">Licenta</p>
-      </div>
-    </mat-grid-tile>
-
-    <mat-grid-tile>
-      <div>
-        <div class="contact">
-          <label>Link-uri</label>
-        </div>
-        <p class="item">Profilul meu</p>
-        <p class="item">Acasa</p>
-        <p class="item">Sesiuni</p>
-        <p class="item">Contact</p>
-      </div>
-    </mat-grid-tile>
-
-    <mat-grid-tile>
-      <div>
-        <div class="contact">
-          <label>Contact</label>
-        </div>
-        <p class="item">Cluj-Napoca</p>
-        <p class="item">Str. Pandurilor, nr. 10</p>
-        <p class="item">0741 316 184</p>
-      </div>
-    </mat-grid-tile>
-
-  </mat-grid-list>
-
-  <div class="copyright">
-    <p>Copyright © 2023. Toate drepturile rezervate.</p>
+  <div class="column">
+    <div class="first-column-row1">Management</div>
+    <div class="first-column-row2">Licenta</div>
   </div>
+  <div class="column">
+    <div class="row-header">Link-uri</div>
+    <div class="row" (click)="onClickHome()">Acasa</div>
+    <div class="row" (click)="onClickProfile()">Profilul meu</div>
+    <div class="row" (click)="onClickSessions()">Sesiuni</div>
+  </div>
+  <div class="column">
+    <div class="row-header">Contact</div>
+    <div class="row">Cluj-Napoca</div>
+    <div class="row">Str. Pandurilor, nr. 10</div>
+    <div class="row">0741 316 184</div>
+  </div>
+</div>
+
+<div class="copyright">
+  <p>Copyright © 2023. Toate drepturile rezervate.</p>
 </div>

@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {LoginService, UserCredentials} from "../../services/login.service";
 import {Router} from "@angular/router";
-import {ToastService} from "../../toast/toast.service";
+import {ToastService} from "../toast/toast.service";
 
 @Component({
   selector: 'app-login',
