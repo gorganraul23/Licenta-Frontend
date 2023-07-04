@@ -25,7 +25,6 @@ export class NavBarComponent {
     if (idGetter()) {
       this.service.getUserById(sessionStorage.getItem('user_id')!).subscribe(res => {
         this.user = res;
-        console.log(this.user);
       })
     }
   }

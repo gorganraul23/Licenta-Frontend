@@ -7,5 +7,6 @@ export const environments = {
     register: "users/register/",
     users: "users/",
     session: "api/session",
+    sensorData: "api/sensor-data/session/",
   },
 };

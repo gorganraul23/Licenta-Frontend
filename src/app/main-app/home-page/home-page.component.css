@@ -3,14 +3,10 @@
 }
 
 .chart {
-  max-height: 70%;
+  max-height: 75%;
   max-width: 99%;
   display: inline;
-}
-
-#canvas-container {
-  width: 100%;
-  text-align: center;
+  margin-top: 3%;
 }
 
 .top {
@@ -19,5 +15,11 @@
   font-size: 2rem;
   text-align: center;
   padding-top: 3%;
-  padding-bottom: 4%;
+  padding-bottom: 3%;
+}
+
+hr {
+  border: 1px solid darkgray;
+  border-radius: 3px;
+  width: 45%;
 }

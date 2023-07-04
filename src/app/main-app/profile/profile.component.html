@@ -24,13 +24,13 @@
     <div class="form-container">
 
       <div class="title">
-        <label>Informatiile mele</label>
+        <label>Informa&#355;iile mele</label>
       </div>
 
       <div class="form">
         <form>
           <div class="info-item">
-            <label class="form-label" for="name">Nume si Prenume</label>
+            <label class="form-label" for="name">Nume &#351;i Prenume</label>
             <div>
               <input type="text" id="name" name="name" [disabled]="!editing"
                      [(ngModel)]="this.modifiedUser.name" [maxLength]="20"></div>
@@ -46,15 +46,15 @@
           <div>
             <button *ngIf="!editing" mat-button class="edit-btn" (click)="onClickEdit()">
               <mat-icon>edit</mat-icon>
-              Editeaza
+              Editeaz&#259;
             </button>
             <button *ngIf="editing" mat-button class="edit-btn" (click)="onClickAnuleaza()">
               <mat-icon>close</mat-icon>
-              Anuleaza
+              Anuleaz&#259;
             </button>
             <button mat-button class="edit-btn" (click)="onClickSave()" [disabled]="!editing">
               <mat-icon>save</mat-icon>
-              Salveaza
+              Salveaz&#259;
             </button>
           </div>
         </form>
@@ -63,3 +63,4 @@
     </div>
 
   </div>
+</div>

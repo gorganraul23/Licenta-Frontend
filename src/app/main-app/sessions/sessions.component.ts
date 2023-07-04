@@ -27,8 +27,11 @@ export class SessionsComponent {
     })
   }
 
-  public clickOnItemRow(id: string) {
-    this.router.navigate(['/sessions/', id]);
+  public clickOnItemRow(id: string, reference: number) {
+    if(reference != 0.0)
+      this.router.navigate(['/sessions/', id]);
+    else
+      this.toast.showToast("Sesiune inca in desfasurare", 'info')
   }
 
   formatDate(date: Date): string {

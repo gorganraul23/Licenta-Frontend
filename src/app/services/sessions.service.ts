@@ -10,6 +10,10 @@ export interface Session {
   reference: number
 }
 
+export interface SensorData {
+  hrv: number,
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -17,6 +21,7 @@ export class SessionsService {
 
   apiUrl = environments.apiUrl;
   session = environments.apiEndpoints.session;
+  sensorData = environments.apiEndpoints.sensorData;
 
   constructor(private http: HttpClient) {
   }
@@ -31,6 +36,10 @@ export class SessionsService {
 
   getSessionById(id: string): Observable<Session> {
     return this.http.get<Session>(this.apiUrl + this.session + '/' + id + '/');
+  }
+
+  getDataBySession(id: string) {
+    return this.http.get<SensorData[]>(this.apiUrl + this.sensorData + id + '/');
   }
 
 }
