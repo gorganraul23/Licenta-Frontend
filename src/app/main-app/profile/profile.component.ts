@@ -54,7 +54,7 @@ export class ProfileComponent {
     this.editing = false;
     this.service.updateProfile(this.modifiedUser).subscribe(res => {
       this.user = res;
-      this.toast.showToast('Informatii actualizate', 'info', true)
+      this.toast.showToast('Informatii actualizate', 'info')
     })
   }
 

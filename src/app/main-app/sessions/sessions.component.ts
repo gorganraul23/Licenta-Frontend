@@ -23,7 +23,6 @@ export class SessionsComponent {
   ngOnInit(): void {
     this.service.getSessions().subscribe(res => {
       this.dataSource = res;
-      console.log(res);
     })
   }
 

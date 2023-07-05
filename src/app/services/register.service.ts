@@ -17,7 +17,6 @@ export class RegisterService {
   }
 
   register(name: string, email: string, password: string) {
-    console.log(name, email, password)
     return this.http.post<any>(this.apiUrl + this.registerUrl, {name, email, password}).pipe(
       tap(response => {
         if (response.error)

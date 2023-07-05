@@ -52,3 +52,8 @@ body {
   padding: 25px;
   margin: 20px;
 }
+
+.mat-mdc-snack-bar-container .mdc-snackbar__surface {
+  margin-top: 10%;
+  height: 60%;
+}

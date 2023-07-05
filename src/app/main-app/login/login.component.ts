@@ -20,7 +20,7 @@ export class LoginComponent {
   }
 
   login() {
-    if(this.user.email == '' || this.user.password == '')
+    if (this.user.email == '' || this.user.password == '')
       this.toast.showToast('Campuri incomplete', 'warning')
     else {
       this.service.login(this.user.email, this.user.password).subscribe(res => {

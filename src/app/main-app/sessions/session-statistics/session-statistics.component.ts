@@ -24,10 +24,8 @@ export class SessionStatisticsComponent {
       const sessionId = params['id'];
       this.service.getSessionById(sessionId).subscribe(res => {
         this.session = res;
-        console.log("1: ", res.id);
         this.service.getDataBySession(sessionId).subscribe(res => {
           this.sensorData = res;
-          console.log(res.length, ", ", this.session.reference);
           if (res.length <= 120) {
             this.lineChartData.datasets[0].data = res.map((data) => data.hrv);
             this.lineChartData.datasets[1].data = Array(res.length).fill(this.session.reference);
