@@ -3,13 +3,17 @@ import {tokenGetter} from "./app.module";
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  template: `
+    <app-nav-bar *ngIf="tokenGetter()"></app-nav-bar>
+    <router-outlet></router-outlet>
+    <app-footer *ngIf="tokenGetter()"></app-footer>
+  `,
+  styles: []
 })
 export class AppComponent {
-  title = 'Frontend-Licenta';
+  title = 'Cognitive Load App';
 
-  tokenGetter() {
+  public tokenGetter() {
     return !!tokenGetter();
   }
 }

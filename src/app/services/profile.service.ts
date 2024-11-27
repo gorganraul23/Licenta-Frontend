@@ -18,10 +18,9 @@ export class ProfileService {
 
   apiUrl = environments.apiUrl
 
-  constructor(private http: HttpClient) {
-  }
+  constructor(private http: HttpClient) {}
 
-  updateProfile(user: User): Observable<User> {
+  public updateProfile(user: User): Observable<User> {
     const userUrl = environments.apiEndpoints.users;
     const userUpdate: UserUpdate = {id: idGetter(), name: user.name, email: user.email};
     return this.http.put<UserUpdate>(this.apiUrl + userUrl + idGetter() + '/', userUpdate);

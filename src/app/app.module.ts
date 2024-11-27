@@ -24,11 +24,11 @@ import {RegisterComponent} from "./main-app/register/register.component";
 import {DeleteSessionComponent} from "./main-app/sessions/delete-session/delete-session.component";
 
 export function tokenGetter() {
-  return sessionStorage.getItem('access_token');
+  return localStorage.getItem('access_token');
 }
 
 export function idGetter() {
-  return sessionStorage.getItem('user_id')!;
+  return localStorage.getItem('user_id')!;
 }
 
 @NgModule({

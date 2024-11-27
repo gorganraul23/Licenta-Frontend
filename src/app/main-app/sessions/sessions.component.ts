@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import {Session, SessionsService} from "../../services/sessions.service";
 import {Router} from "@angular/router";
 import {DatePipe, DecimalPipe} from '@angular/common';
@@ -8,48 +8,160 @@ import {DeleteSessionComponent} from "./delete-session/delete-session.component"
 
 @Component({
   selector: 'app-sessions',
-  templateUrl: './sessions.component.html',
-  styleUrls: ['./sessions.component.css']
+  template: `
+    <div class="content-wrapper">
+      <div class="temp-container">
+        <div class="content-container mat-elevation-z4 !m-0">
+          <div class="header-container"></div>
+          <div class="table-container">
+            <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 demo-table">
+              <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef>NAME</th>
+                <td mat-cell *matCellDef="let element" class="details overflow">SESIUNE</td>
+              </ng-container>
+              <ng-container matColumnDef="start_time">
+                <th mat-header-cell *matHeaderCellDef>START TIME</th>
+                <td mat-cell *matCellDef="let element"
+                    class="details overflow">{{formatDate(element.start_time)}}</td>
+              </ng-container>
+              <ng-container matColumnDef="end_time">
+                <th mat-header-cell *matHeaderCellDef>END TIME</th>
+                <td mat-cell *matCellDef="let element" class="details overflow">{{formatDate(element.end_time)}}</td>
+              </ng-container>
+              <ng-container matColumnDef="reference">
+                <th mat-header-cell *matHeaderCellDef>REFERENCE</th>
+                <td mat-cell *matCellDef="let element"
+                    class="details overflow">{{formatReference(element.reference)}}</td>
+              </ng-container>
+              <ng-container matColumnDef="delete">
+                <th mat-header-cell *matHeaderCellDef>DELETE</th>
+                <td mat-cell *matCellDef="let element">
+                  <button mat-icon-button (click)="deleteSession($event, element.id)">
+                    <mat-icon class="delete-button">delete_outline</mat-icon>
+                  </button>
+                </td>
+              </ng-container>
+              <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns; let element"
+                  (click)="clickOnItemRow(element.id, element.reference)"></tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  `,
+  styles: [`
+    .mat-row .mat-cell {
+      border-bottom: 1px solid #CCDBF0;
+      border-top: 1px solid transparent;
+      cursor: pointer;
+    }
+
+    .mat-row:hover .mat-cell {
+      background-color: #FCF1E9;
+      border-bottom: 1px solid #294166;
+    }
+
+    .mat-header-row {
+      background-color: #CBDAF0;
+    }
+
+    .mdc-data-table__header-cell {
+      text-align: center;
+    }
+
+    .mdc-data-table__cell {
+      text-align: center;
+    }
+
+    .mat-mdc-table .mdc-data-table__row:nth-child(n){
+      background-color: #ffffff;
+    }
+    .mat-mdc-table .mdc-data-table__row:not(:nth-child(2n+1)){
+      background-color: rgba(228,228,228,0.35);
+    }
+
+    .mat-mdc-table .mdc-data-table__header-row{
+      background-color: rgb(201, 199, 199)
+    }
+
+    .details {
+      font-weight: bold;
+      color: #314D77;
+    }
+
+    .table-container {
+      display: flex;
+      justify-content: center;
+      overflow-y: auto;
+      max-height: 89%;
+    }
+
+    .header-container {
+      display: flex;
+      justify-content: right;
+      margin-right: 1%;
+      margin-bottom: 30px;
+    }  
+  `]
 })
-export class SessionsComponent {
+export class SessionsComponent implements OnInit {
 
-  displayedColumns: string[] = ['name', 'start_time', 'end_time', 'reference', 'delete'];
-  dataSource: Session[] = [];
+  ///
+  /// DI
+  ///
 
-  constructor(private service: SessionsService, private router: Router, private decimalPipe: DecimalPipe,
-              private datePipe: DatePipe, private dialog: MatDialog, private toast: ToastService) {
-  }
+  private readonly service = inject(SessionsService);
+  private readonly router = inject(Router);
+  private readonly decimalPipe = inject(DecimalPipe);
+  private readonly datePipe = inject(DatePipe);
+  private readonly dialog = inject(MatDialog);
+  private readonly toast = inject(ToastService);
 
-  ngOnInit(): void {
+  ///
+  /// View Model
+  ///
+
+  protected displayedColumns: string[] = ['name', 'start_time', 'end_time', 'reference', 'delete'];
+  protected dataSource: Session[] = [];
+
+  ///
+  /// Lifecycle Events
+  ///
+
+  public ngOnInit(): void {
     this.service.getSessions().subscribe(res => {
       this.dataSource = res;
     })
   }
 
-  public clickOnItemRow(id: string, reference: number) {
+  ///
+  /// UI Handlers
+  ///
+
+  protected clickOnItemRow(id: string, reference: number) {
     if(reference != 0.0)
       this.router.navigate(['/sessions/', id]);
     else
-      this.toast.showToast("Sesiune inca in desfasurare", 'info')
+      this.toast.showToast("Session is still ongoing", 'info')
   }
 
-  formatDate(date: Date): string {
+  protected formatDate(date: Date): string {
     const formattedDate = this.datePipe.transform(date, 'dd-MM-yyyy hh:mm:ss');
     return formattedDate!!;
   }
 
-  formatReference(reference: number): string {
+  protected formatReference(reference: number): string {
     const floatNumber = this.decimalPipe.transform(reference!!, '1.2-2');
     return floatNumber!!
   }
 
-
-  deleteSession(event: any, id: string) {
+  protected deleteSession(event: any, id: string) {
     event.stopPropagation();
     this.openDeleteSessionDialog(id);
   }
 
-  openDeleteSessionDialog(id: string) {
+  protected openDeleteSessionDialog(id: string) {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.data = {
       id
@@ -65,7 +177,7 @@ export class SessionsComponent {
           this.service.getSessions().subscribe(res => {
             this.dataSource = res;
           })
-          this.toast.showToast('Sesiune stearsa', 'info')
+          this.toast.showToast('Session was deleted', 'info')
         }
       }
     );

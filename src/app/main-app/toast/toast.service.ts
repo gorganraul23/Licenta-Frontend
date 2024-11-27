@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {inject, Injectable} from '@angular/core';
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {ToastComponent} from "./toast.component";
 
@@ -7,10 +7,17 @@ import {ToastComponent} from "./toast.component";
 })
 export class ToastService {
 
-  constructor(private snackBar: MatSnackBar) {
-  }
+  ///
+  /// DI
+  ///
 
-  showToast(displayMessage: string, messageType: 'error' | 'warning' | 'info') {
+  private readonly snackBar = inject(MatSnackBar);
+
+  /// 
+  /// UI Handlers
+  ///
+
+  public showToast(displayMessage: string, messageType: 'error' | 'warning' | 'info') {
     this.snackBar.openFromComponent(ToastComponent, {
       data: {
         message: displayMessage,

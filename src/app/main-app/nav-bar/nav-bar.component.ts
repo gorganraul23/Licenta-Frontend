@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import {LoginService} from "../../services/login.service";
 import {Router} from "@angular/router";
 import {idGetter} from "../../app.module";
@@ -10,43 +10,110 @@ export interface User {
 
 @Component({
   selector: 'app-nav-bar',
-  templateUrl: './nav-bar.component.html',
-  styleUrls: ['./nav-bar.component.css']
+  template: `
+    <mat-toolbar class="mat-elevation-z4">
+      <button mat-button class="btn" (click)="onClickHomeBtn()">Management</button>
+      <span class="right-side"></span>
+      <button mat-button class="btn" (click)="onClickHomeBtn()">Home</button>
+      <button mat-button class="btn" (click)="onClickSessionsBtn()">Sessions</button>
+      <button mat-button class="btn" (click)="onClickExperimentsBtn()">Experiments</button>
+      <button mat-button class="account-btn"
+          [matMenuTriggerFor]="menu1">
+        <mat-icon>perm_identity</mat-icon>
+        My account
+      </button>
+      <mat-menu #menu1="matMenu">
+        <button mat-menu-item (click)="onClickProfileBtn()">My profile</button>
+        <button mat-menu-item (click)="onClickLogoutBtn()">Log out</button>
+      </mat-menu>
+    </mat-toolbar>
+  `,
+  styles: [`
+    .right-side {
+      flex: 1 1 auto;
+    }
+    
+    mat-toolbar {
+      min-height: 9%;
+      background-color: black;
+      color: white;
+      align-content: center;
+    }
+    
+    .account-btn {
+      background-color: #0051CB;
+      border-radius: 10px;
+      font-size: 20px;
+      font-family: "Helvetica", sans-serif;
+      min-height: 60%;
+    }
+    
+    .account-btn:hover {
+      background-color: #130888;
+    }
+    
+    .btn {
+      font-size: 20px;
+      font-family: "Calibri", sans-serif;
+      margin-right: 2%;
+    }
+  `]
 })
-export class NavBarComponent {
+export class NavBarComponent implements OnInit {
 
-  user: User = {name: '', email: ''};
-  isAuthenticated = false;
+  ///
+  /// DI
+  ///
 
-  constructor(private service: LoginService, private router: Router) {
-  }
+  private readonly service = inject(LoginService);
+  private readonly router = inject(Router);
 
-  ngOnInit(): void {
+  ///
+  /// View Model
+  ///
+
+  protected user: User = {name: '', email: ''};
+  public isAuthenticated = false;
+
+  ///
+  /// Lifecycle Events
+  ///
+
+  public ngOnInit(): void {
     if (idGetter()) {
-      this.service.getUserById(sessionStorage.getItem('user_id')!).subscribe(res => {
+      this.service.getUserById(localStorage.getItem('user_id')!).subscribe(res => {
         this.user = res;
       })
     }
   }
 
-  getInitials = (name: string | undefined) => {
+  /// 
+  /// UI Handlers
+  ///
+
+  protected getInitials = (name: string | undefined) => {
     return name?.split(" ").map((n) => n[0]).join("");
   }
 
-  onClickLogoutBtn() {
+  protected onClickLogoutBtn() {
     this.service.logout();
     this.router.navigate(['login']);
   }
 
-  onClickProfileBtn() {
+  protected onClickProfileBtn() {
     this.router.navigate(['profile']);
   }
 
-  onClickHomeBtn() {
+  protected onClickHomeBtn() {
     this.router.navigate(['home']);
   }
 
-  onClickSessionsBtn() {
+  protected onClickSessionsBtn() {
     this.router.navigate(['sessions']);
   }
+
+  protected onClickExperimentsBtn() {
+    this.router.navigate(['experiment-home']);
+  }
+
 }

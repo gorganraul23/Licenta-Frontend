@@ -29,33 +29,33 @@ export class LoginService {
   constructor(private http: HttpClient, private toast: ToastService) {
   }
 
-  login(email: string, password: string) {
+  public login(email: string, password: string) {
     const loginUrl = environments.apiEndpoints.login;
     return this.http.post<any>(this.apiUrl + loginUrl, {email, password}).pipe(
       tap(response => {
         if (response.error)
-          this.toast.showToast('Credentiale incorecte', 'error')
+          this.toast.showToast('Incorect credentials ', 'error')
         else {
-          sessionStorage.setItem('access_token', response.access_token);
-          sessionStorage.setItem('user_id', response.user_id);
+          localStorage.setItem('access_token', response.access_token);
+          localStorage.setItem('user_id', response.user_id);
         }
       })
     );
   }
 
-  getUserById(id: string): Observable<User> {
+  public getUserById(id: string): Observable<User> {
     const usersUrl = environments.apiEndpoints.users;
     return this.http.get<User>(this.apiUrl + usersUrl + id + '/');
   }
 
-  logout() {
-    sessionStorage.removeItem('access_token');
-    sessionStorage.removeItem('user_id');
+  public logout() {
+    localStorage.removeItem('access_token');
+    localStorage.removeItem('user_id');
     this.isLoggedIn = false
   }
 
-  getToken() {
-    const token = sessionStorage.getItem('access_token');
+  public getToken() {
+    const token = localStorage.getItem('access_token');
     if (token && !this.jwtHelper.isTokenExpired(token)) {
       return token;
     } else {
@@ -64,7 +64,7 @@ export class LoginService {
     }
   }
 
-  isAuthenticated() {
+  public isAuthenticated() {
     return !!this.getToken();
   }
 

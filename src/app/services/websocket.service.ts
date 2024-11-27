@@ -10,10 +10,9 @@ export class WebsocketService {
   private socket?: WebSocket;
   websocketUrl = environments.websocketUrl;
 
-  constructor() {
-  }
+  constructor() {}
 
-  connect(): Observable<any> {
+  public connect(): Observable<any> {
     this.socket = new WebSocket(this.websocketUrl);
 
     return new Observable((observer) => {
@@ -39,11 +38,11 @@ export class WebsocketService {
     });
   }
 
-  send(message: string): void {
+  public send(message: string): void {
     this.socket?.send(JSON.stringify({message}));
   }
 
-  close(): void {
+  public close(): void {
     this.socket?.close();
   }
 

@@ -21,25 +21,29 @@ export class SessionsService {
 
   apiUrl = environments.apiUrl;
   session = environments.apiEndpoints.session;
-  sensorData = environments.apiEndpoints.sensorData;
 
-  constructor(private http: HttpClient) {
-  }
+  constructor(private http: HttpClient) {}
 
-  getSessions(): Observable<Session[]> {
+  public getSessions(): Observable<Session[]> {
     return this.http.get<Session[]>(this.apiUrl + this.session);
   }
 
-  deleteSession(id: string): Observable<null> {
+  public deleteSession(id: string): Observable<null> {
     return this.http.delete<null>(this.apiUrl + this.session + '/' + id + '/');
   }
 
-  getSessionById(id: string): Observable<Session> {
+  public getSessionById(id: string): Observable<Session> {
     return this.http.get<Session>(this.apiUrl + this.session + '/' + id + '/');
   }
 
-  getDataBySession(id: string) {
-    return this.http.get<SensorData[]>(this.apiUrl + this.sensorData + id + '/');
+  public getDataBySession(id: string) {
+    const sensorData = environments.apiEndpoints.sensorData;
+    return this.http.get<SensorData[]>(this.apiUrl + sensorData + id + '/');
+  }
+
+  public getSessionRunning(): Observable<Session> {
+    const sessionRunning = environments.apiEndpoints.sessionRunning;
+    return this.http.get<Session>(this.apiUrl + sessionRunning);
   }
 
 }

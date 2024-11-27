@@ -1,23 +1,75 @@
-import {Component, ViewChild} from '@angular/core';
+import {Component, inject, OnInit, ViewChild} from '@angular/core';
 import {ChartConfiguration, ChartType} from 'chart.js';
 import {BaseChartDirective} from 'ng2-charts';
-import {ToastService} from "../toast/toast.service";
 import {WebsocketService} from "../../services/websocket.service";
 
 @Component({
   selector: 'app-home-page',
-  templateUrl: './home-page.component.html',
-  styleUrls: ['./home-page.component.css']
+  template: `
+    <div class="content-wrapper">
+      <div class="temp-container">
+        <div class="content-container mat-elevation-z4 !m-0 !min-w-[100vh]">
+          <div class="container">
+            <p class="top">Real time data</p>
+            <hr>
+            <canvas baseChart class="chart"
+                [data]="lineChartData"
+                [options]="lineChartOptions"
+                [type]="lineChartType">
+            </canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+  `,
+  styles: [`
+    .container {
+      height: 91%;
+    }
+
+    .chart {
+      max-height: 75%;
+      max-width: 99%;
+      display: inline;
+      margin-top: 3%;
+    }
+
+    .top {
+      color: black;
+      font-weight: 900;
+      font-size: 2rem;
+      text-align: center;
+      padding-top: 3%;
+      padding-bottom: 3%;
+    }
+
+    hr {
+      border: 1px solid gray;
+      border-radius: 3px;
+      width: 100%;
+    }
+  `]
 })
-export class HomePageComponent {
+export class HomePageComponent implements OnInit {
+
+  ///
+  /// DI
+  ///
+
+  private readonly websocket = inject(WebsocketService);
+
+  ///
+  /// View Model
+  ///
 
   public lineChartType: ChartType = 'line';
   @ViewChild(BaseChartDirective) chart?: BaseChartDirective;
 
-  constructor(private toast: ToastService, private websocket: WebsocketService) {
-  }
+  ///
+  /// Lifecycle Events
+  ///
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.websocket.connect().subscribe(
       (event) => {
         console.log('WebSocket event:', event);
@@ -33,7 +85,7 @@ export class HomePageComponent {
 
   }
 
-  updateChart(hr: number, hrv: number) {
+  protected updateChart(hr: number, hrv: number) {
 
     if (this.lineChartData.datasets[0].data.length == 120) {
       this.lineChartData.datasets[0].data.shift();
@@ -86,14 +138,14 @@ export class HomePageComponent {
     plugins: {legend: {display: true},}
   };
 
-  generateLabels(length: number): number[] {
+  protected generateLabels(length: number): number[] {
     let labels: number[] = [];
     for (let i = 1; i <= length; i++)
       labels.push(i);
     return labels;
   }
 
-  ngOnDestroy(): void {
+  public ngOnDestroy(): void {
     this.websocket.close();
   }
 

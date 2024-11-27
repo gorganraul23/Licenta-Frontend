@@ -13,17 +13,16 @@ export class RegisterService {
   private apiUrl = environments.apiUrl;
   private registerUrl = environments.apiEndpoints.register;
 
-  constructor(private http: HttpClient, private router: Router, private toast: ToastService) {
-  }
+  constructor(private http: HttpClient, private router: Router, private toast: ToastService) {}
 
-  register(name: string, email: string, password: string) {
+  public register(name: string, email: string, password: string) {
     return this.http.post<any>(this.apiUrl + this.registerUrl, {name, email, password}).pipe(
       tap(response => {
         if (response.error)
-          this.toast.showToast('Email deja folosit', 'error')
+          this.toast.showToast('Email already in use', 'error')
         else {
           this.router.navigate(['login']);
-          this.toast.showToast('Inregistrare completa', 'info')
+          this.toast.showToast('Complete registration', 'info')
         }
       })
     );
