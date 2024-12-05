@@ -2,6 +2,8 @@ import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common'
 import { FormsModule } from '@angular/forms';
+import { SessionsService } from 'src/app/services/sessions.service';
+import { ToastService } from '../toast/toast.service';
 
 @Component({
   selector: 'app-experiment-home',
@@ -30,8 +32,10 @@ import { FormsModule } from '@angular/forms';
             type="number"
             id="timer-{{ i }}"
             [(ngModel)]="timerConfig[page]"
-            class="ml-2 px-2 py-1 border rounded text-xl"
+            class="ml-2 px-2 py-1 border rounded text-xl cursor-default"
             min="10"
+            max="180"
+            readonly
           />
         </div>
       </div>
@@ -46,6 +50,8 @@ export class ExperimentHomeComponent {
   ///
 
   private readonly router = inject(Router);
+  private readonly sessionService = inject(SessionsService);
+  private readonly toast = inject(ToastService);
   
   constructor() {
     this.pages.forEach((page) => {
@@ -65,8 +71,20 @@ export class ExperimentHomeComponent {
   ///
 
   protected goToExperimentPage(): void {
-    localStorage.setItem('timerConfig', JSON.stringify(this.timerConfig));
-    this.router.navigate(['experiment']);
+    try{
+      this.sessionService.getSessionRunning().subscribe({
+        next: (response) => {
+          console.log(response);
+          localStorage.setItem('timerConfig', JSON.stringify(this.timerConfig));
+          this.toast.showToast('Experiment started!', 'info')
+          this.router.navigate(['experiment']);
+        },
+        error: (error) => {
+          this.toast.showToast('No active session!', 'error')
+        }
+      })
+    }
+    catch {}
   }
   
 }
