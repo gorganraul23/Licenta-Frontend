@@ -77,6 +77,10 @@ export class ExperimentHomeComponent {
 
   protected startExperiment(): void {
     try{
+      if(this.timerConfig['relax1'] < 1 || this.timerConfig['cogl1'] < 1 || this.timerConfig['relax2'] < 1 || this.timerConfig['cogl2'] < 1 || this.timerConfig['relax3'] < 1 || this.timerConfig['cogl3'] < 1 || this.timerConfig['relax4'] < 1) {
+        this.toast.showToast('Wrong configurations', 'info');
+        return;
+      }
       const dialogConfig = new MatDialogConfig();
       dialogConfig.data = {
         titleText: 'Start Experiment',

@@ -2,6 +2,8 @@ import { Component, inject, ViewChild } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
 import { TimerComponent } from 'src/app/main-app/timer/timer.component';
 import { ToastService } from '../../toast/toast.service';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { ConfirmDialogComponent } from '../../shared/confirm-dialog.component';
 
 @Component({
   selector: 'app-experiment',
@@ -25,6 +27,7 @@ export class ExperimentComponent {
 
   private readonly router = inject(Router);
   private readonly toast = inject(ToastService);
+  private readonly dialog = inject(MatDialog);
 
   ///
   /// View Model
@@ -54,6 +57,17 @@ export class ExperimentComponent {
       this.timerComponent.resetTimer();
     } else {
       this.toast.showToast('Experiment completed!', 'info')
+      const dialogConfig = new MatDialogConfig();
+      dialogConfig.data = {
+        titleText: 'Congratulations! Experiment ended',
+        contentText: 'Continue with playing the puzzle?',
+        confirmButtonText: 'Continue'
+      };
+      const dialogRef = this.dialog.open(ConfirmDialogComponent, dialogConfig)
+      dialogRef.afterClosed().subscribe(status => {
+        if (!status)
+          this.router.navigate(['experiment-home']);
+      });
     }
   }
 

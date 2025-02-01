@@ -4,9 +4,10 @@ import { Component } from '@angular/core';
   selector: 'app-relax-page4',
   standalone: true,
   template: `
-    <div class="w-full flex justify-center flex-wrap flex-col items-center">
-      <p class="text-xl">This is the end of our experiment. Think of it, are you relaxed or not?</p>
-      <img src="assets/experiments/images/relax4.jfif" alt="Cognitive App Image" class="mt-6 max-w-4xl mx-auto rounded shadow-lg">
+    <div class="w-full flex justify-center flex-wrap flex-col items-center mt-4">
+      <p class="text-xl mb-6">Let's make a puzzle!</p>
+      <iframe src="https://www.jigsawplanet.com/?rc=play&amp;pid=14906a6c236c&amp;view=iframe" style="width:100%;height:600px" frameborder="0" allowfullscreen></iframe>
+      <!-- <iframe src="https://www.jigsawplanet.com/?rc=play&amp;pid=0338a27c1a48&amp;view=iframe" style="width:100%;height:600px" frameborder="0" allowfullscreen></iframe> -->
     </div>
   `,
   styles: []

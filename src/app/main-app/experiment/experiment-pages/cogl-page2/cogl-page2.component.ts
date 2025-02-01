@@ -9,13 +9,13 @@ import { SessionsService } from 'src/app/services/sessions.service';
   standalone: true,
   imports: [CommonModule, FormsModule],
   template: `
-    <div class="text-center mt-20">
+    <div class="text-center mt-4">
       <h1 class="text-2xl text-black">Image Selection Challenge</h1>
       <p class="mt-4">In each row, select the correct option based on the given question. The responses will be automatically submitted when the time is gone.</p>
 
       <div *ngFor="let row of rows; let i = index" class="mt-6">
         <p><strong>{{ i + 1 }}: Which is the AI generated object?</strong></p>
-        <div class="grid grid-cols-4 gap-4">
+        <div class="grid grid-cols-2 gap-4">
           <div *ngFor="let picture of row; let j = index">
             <input type="checkbox" [(ngModel)]="picture.selected" [id]="'row' + i + 'image' + j" (change)="updateResponse(i+1, j+1)">
             <label [for]="'row' + i + 'image' + j"> 
@@ -36,37 +36,46 @@ export class CoglPage2Component implements OnInit, OnDestroy {
 
   protected rows: any[] = [
     [
-      { src: 'assets/experiments/images/cogl2/img1.png', selected: false },
-      { src: 'assets/experiments/images/cogl2/img2.png', selected: false },
-      { src: 'assets/experiments/images/cogl2/img3.png', selected: false },
-      { src: 'assets/experiments/images/cogl2/img4.png', selected: false },
+      { src: 'assets/experiments/images/cogl2/q1i1-r.jpg', selected: false }, //1
+      { src: 'assets/experiments/images/cogl2/q1i2.jpg', selected: false },
     ],
     [
-      { src: 'assets/experiments/images/cogl2/img5.png', selected: false },
-      { src: 'assets/experiments/images/cogl2/img6.png', selected: false },
-      { src: 'assets/experiments/images/cogl2/img7.png', selected: false },
-      { src: 'assets/experiments/images/cogl2/img8.png', selected: false },
+      { src: 'assets/experiments/images/cogl2/q2i1.jpg', selected: false }, //2
+      { src: 'assets/experiments/images/cogl2/q2i2-r.png', selected: false },
     ],
     [
-      { src: 'assets/experiments/images/cogl2/img9.png', selected: false },
-      { src: 'assets/experiments/images/cogl2/img10.png', selected: false },
-      { src: 'assets/experiments/images/cogl2/img11.png', selected: false },
-      { src: 'assets/experiments/images/cogl2/img12.png', selected: false },
+      { src: 'assets/experiments/images/cogl2/q3i1-r.jpg', selected: false }, //3
+      { src: 'assets/experiments/images/cogl2/q3i2.jpg', selected: false },
     ],
     [
-      { src: 'assets/experiments/images/cogl2/img13.png', selected: false },
-      { src: 'assets/experiments/images/cogl2/img14.png', selected: false },
-      { src: 'assets/experiments/images/cogl2/img15.png', selected: false },
-      { src: 'assets/experiments/images/cogl2/img16.png', selected: false },
+      { src: 'assets/experiments/images/cogl2/q4i1.jpg', selected: false }, //4
+      { src: 'assets/experiments/images/cogl2/q4i2-r.jpg', selected: false },
     ],
     [
-      
-      { src: 'assets/experiments/images/cogl2/img17.png', selected: false },
-      { src: 'assets/experiments/images/cogl2/img18.png', selected: false },
-      { src: 'assets/experiments/images/cogl2/img19.png', selected: false },
-      { src: 'assets/experiments/images/cogl2/img20.png', selected: false },
-    ]
-  ];
+      { src: 'assets/experiments/images/cogl2/q5i1-r.jpg', selected: false }, //5
+      { src: 'assets/experiments/images/cogl2/q5i2.jpg', selected: false },
+    ],
+    [
+      { src: 'assets/experiments/images/cogl2/q6i1-r.jpg', selected: false }, //6
+      { src: 'assets/experiments/images/cogl2/q6i2.jpg', selected: false },
+    ],
+    [
+      { src: 'assets/experiments/images/cogl2/q7i1.jpg', selected: false }, //7
+      { src: 'assets/experiments/images/cogl2/q7i2-r.jpg', selected: false },
+    ],
+    [
+      { src: 'assets/experiments/images/cogl2/q8i1.jpg', selected: false }, //8
+      { src: 'assets/experiments/images/cogl2/q8i2-r.jpg', selected: false },
+    ],
+    [
+      { src: 'assets/experiments/images/cogl2/q9i1-r.jpg', selected: false }, //9
+      { src: 'assets/experiments/images/cogl2/q9i2.jpg', selected: false },
+    ],
+    [
+      { src: 'assets/experiments/images/cogl2/q10i1-r.jpg', selected: false },  //10
+      { src: 'assets/experiments/images/cogl2/q10i2.jpg', selected: false },
+    ],
+  ]; ///https://britannicaeducation.com/blog/quiz-real-or-ai/
 
   private responses: Record<string, string> = {};
   private sessionId = '';
@@ -104,13 +113,10 @@ export class CoglPage2Component implements OnInit, OnDestroy {
         answerLetter = 'a';
         break;
       case 2:
-        answerLetter = 'b'
-        break;
-      case 3:
-        answerLetter = 'c'
+        answerLetter = 'b';
         break;
       default:
-        answerLetter = 'd'
+        answerLetter = 'a';
         break;
     }
     this.responses['q' + questionId] = answerLetter;
