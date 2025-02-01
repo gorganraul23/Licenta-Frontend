@@ -6,7 +6,7 @@ import {ToastService} from "../toast/toast.service";
 @Component({
   selector: 'app-footer',
   template: `
-    <div>
+    <div class="aligned">
       <div class="container">
         <div class="column">
           <div class="first-column-row1">Management</div>
@@ -16,6 +16,7 @@ import {ToastService} from "../toast/toast.service";
           <div class="row cursor-pointer" (click)="onClickHome()">Home</div>
           <div class="row cursor-pointer" (click)="onClickProfile()">My profile</div>
           <div class="row cursor-pointer" (click)="onClickSessions()">Sessions</div>
+          <div class="row cursor-pointer" (click)="onClickExperiments()">Experiments</div>
         </div>
         <div class="column">
           <div class="row-header">Contact</div>
@@ -25,7 +26,7 @@ import {ToastService} from "../toast/toast.service";
         </div>
       </div>
 
-      <div class="copyright">
+      <div class="aligned">
         <p>Copyright © 2024. All rights reserved.</p>
       </div>
     </div>
@@ -57,7 +58,7 @@ import {ToastService} from "../toast/toast.service";
       font-size: 1.5rem;
     }
 
-    .copyright {
+    .aligned {
       background-color: black;
       color: white;
       width: 100%;
@@ -106,6 +107,13 @@ export class FooterComponent {
   protected onClickProfile() {
     if (this.service.isAuthenticated())
       this.router.navigate(['profile']);
+    else
+      this.toast.showToast('Login for this action', 'warning')
+  }
+
+  protected onClickExperiments() {
+    if (this.service.isAuthenticated())
+      this.router.navigate(['experiment-home']);
     else
       this.toast.showToast('Login for this action', 'warning')
   }

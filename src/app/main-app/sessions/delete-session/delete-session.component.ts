@@ -5,50 +5,18 @@ import {SessionsService} from "../../../services/sessions.service";
 @Component({
   selector: 'app-delete-session',
   template: `
-    <div class="container">
-      <h1 mat-dialog-title class="delete-user-dialog-title">Delete session</h1>
-      <div class="dialog-content">
+    <div class="p-5">
+      <h1 class="flex w-full justify-center text-black">Delete session</h1>
+      <hr/>
+      <div class="flex justify-center text-black text-lg my-3">
        Are you sure to delete the session?
       </div>
-      <div mat-dialog-actions>
-        <button mat-button mat-dialog-close="true" class="cancel-button" (click)="cancel()">Cancel</button>
-        <button mat-raised-button (click)="deleteSession()" class="delete-user-button">Delete</button>
+      <div class="flex justify-center mt-5 gap-x-3">
+        <button mat-button class="text-black !bg-gray-200 hover:!bg-gray-300 w-28 h-9 !border !rounded-lg" (click)="cancel()">Cancel</button>
+        <button mat-raised-button (click)="deleteSession()" class="!bg-blue-700 !text-white hover:!bg-blue-800 border-solid w-28 h-9 !border !rounded-lg">Delete</button>
       </div>
     </div>
   `,
-  styles: [`
-    .container {
-      padding: 20px;
-    }
-    
-    .delete-user-dialog-title {
-      color: #294166;
-      display: flex;
-      justify-content: center;
-    }
-    
-    .mat-dialog-title {
-      border-bottom: 2px solid #FFA6AD
-    }
-    
-    .delete-user-button {
-      background-color: #294166;
-      border-radius: 5px;
-      color: #FFFFFF;
-      width: 125px;
-    }
-    
-    .cancel-button {
-      color: #294166;
-    }
-    
-    .dialog-content {
-      color: #3E5F8D;
-      justify-content: center;
-      display: flex;
-      margin-bottom: 10px;
-    }
-  `]
 })
 export class DeleteSessionComponent {
 

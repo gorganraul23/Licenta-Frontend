@@ -24,7 +24,8 @@ export class LoginService {
 
   private apiUrl = environments.apiUrl;
   private jwtHelper = new JwtHelperService();
-  isLoggedIn = false;
+  public isLoggedIn = false;
+  public isAdmin = false;
 
   constructor(private http: HttpClient, private toast: ToastService) {
   }
@@ -51,7 +52,8 @@ export class LoginService {
   public logout() {
     localStorage.removeItem('access_token');
     localStorage.removeItem('user_id');
-    this.isLoggedIn = false
+    this.isLoggedIn = false;
+    this.isAdmin = false;
   }
 
   public getToken() {

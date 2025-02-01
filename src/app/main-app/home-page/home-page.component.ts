@@ -2,6 +2,7 @@ import {Component, inject, OnInit, ViewChild} from '@angular/core';
 import {ChartConfiguration, ChartType} from 'chart.js';
 import {BaseChartDirective} from 'ng2-charts';
 import {WebsocketService} from "../../services/websocket.service";
+import { ToastService } from '../toast/toast.service';
 
 @Component({
   selector: 'app-home-page',
@@ -57,6 +58,7 @@ export class HomePageComponent implements OnInit {
   ///
 
   private readonly websocket = inject(WebsocketService);
+  private readonly toast = inject(ToastService);
 
   ///
   /// View Model
@@ -73,7 +75,13 @@ export class HomePageComponent implements OnInit {
     this.websocket.connect().subscribe(
       (event) => {
         console.log('WebSocket event:', event);
-        if (event.type == 'message') {
+        if (event.type == 'open') {
+          //this.toast.showToast("Websocket open", 'info')
+        }
+        else if (event.type == 'close') {
+          //this.toast.showToast("Websocket closed", 'info')
+        }
+        else if (event.type == 'message') {
           const data = event.data;
           this.updateChart(data.hr, data.hrv);
         }

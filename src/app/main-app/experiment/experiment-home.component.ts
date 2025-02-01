@@ -4,6 +4,9 @@ import { CommonModule } from '@angular/common'
 import { FormsModule } from '@angular/forms';
 import { SessionsService } from 'src/app/services/sessions.service';
 import { ToastService } from '../toast/toast.service';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';;
+import { ConfirmDialogComponent } from '../shared/confirm-dialog.component';
+import { LoginService } from 'src/app/services/login.service';
 
 @Component({
   selector: 'app-experiment-home',
@@ -17,7 +20,7 @@ import { ToastService } from '../toast/toast.service';
         </p>
         <img src="assets/experiments/images/cogl.png" alt="Cognitive App Image" class="mt-6 max-w-2xl mx-auto rounded shadow-lg">
         <button
-          (click)="goToExperimentPage()"
+          (click)="startExperiment()"
           class="mt-8 py-2 px-6 bg-blue-700 text-white rounded-lg shadow-lg hover:bg-blue-800 transition-colors"
         >
           Start the experiment
@@ -35,7 +38,7 @@ import { ToastService } from '../toast/toast.service';
             class="ml-2 px-2 py-1 border rounded text-xl cursor-default"
             min="10"
             max="180"
-            readonly
+            [readonly]="!this.authService.isAdmin"
           />
         </div>
       </div>
@@ -52,6 +55,8 @@ export class ExperimentHomeComponent {
   private readonly router = inject(Router);
   private readonly sessionService = inject(SessionsService);
   private readonly toast = inject(ToastService);
+  private readonly dialog = inject(MatDialog);
+  protected readonly authService = inject(LoginService);
   
   constructor() {
     this.pages.forEach((page) => {
@@ -70,21 +75,36 @@ export class ExperimentHomeComponent {
   /// UI Handlers
   ///
 
-  protected goToExperimentPage(): void {
+  protected startExperiment(): void {
     try{
-      this.sessionService.getSessionRunning().subscribe({
-        next: (response) => {
-          console.log(response);
-          localStorage.setItem('timerConfig', JSON.stringify(this.timerConfig));
-          this.toast.showToast('Experiment started!', 'info')
-          this.router.navigate(['experiment']);
-        },
-        error: (error) => {
-          this.toast.showToast('No active session!', 'error')
-        }
-      })
+      const dialogConfig = new MatDialogConfig();
+      dialogConfig.data = {
+        titleText: 'Start Experiment',
+        contentText: 'Are you sure you want to start the experiment?',
+        confirmButtonText: 'Start'
+      };
+      const dialogRef = this.dialog.open(ConfirmDialogComponent, dialogConfig)
+      dialogRef.afterClosed().subscribe(status => {
+        if (status)
+          this.goToExperimentPage();
+      });
     }
-    catch {}
+    catch {
+      this.toast.showToast('Something went wrong', 'info');
+    }
+  }
+
+  private goToExperimentPage(): void {
+    this.sessionService.getSessionRunning().subscribe({
+      next: (response) => {
+        localStorage.setItem('timerConfig', JSON.stringify(this.timerConfig));
+        this.toast.showToast('Experiment started!', 'info')
+        this.router.navigate(['experiment']);
+      },
+      error: (error) => {
+        this.toast.showToast('No active session!', 'error');
+      }
+    })
   }
   
 }

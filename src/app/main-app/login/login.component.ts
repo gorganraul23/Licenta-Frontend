@@ -97,6 +97,7 @@ export class LoginComponent implements OnInit {
       this.service.login(this.user.email, this.user.password).subscribe(res => {
         if (this.service.isAuthenticated()) {
           this.service.isLoggedIn = true
+          this.service.isAdmin = res.is_superuser ?? false;
           this.router.navigate(['home']);
         }
       });

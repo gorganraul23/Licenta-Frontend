@@ -44,14 +44,14 @@ import {DatePipe, DecimalPipe} from "@angular/common";
     }
 
     .left {
-      width: calc(25% - 5px);
-      min-height: 665px;
+      width: calc(25vw - 5px);
+      min-height: 91vh;
       background-color: #cccccc;
     }
 
     .right {
-      width: calc(75% - 35px);
-      min-height: 665px;
+      width: calc(75vw - 5px);
+      min-height: 91vh;
       background-color: rgba(228,228,228,0.35)
     }
 
