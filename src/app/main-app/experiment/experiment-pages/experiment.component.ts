@@ -4,6 +4,7 @@ import { TimerComponent } from 'src/app/main-app/timer/timer.component';
 import { ToastService } from '../../toast/toast.service';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from '../../shared/confirm-dialog.component';
+import { ExperimentService } from 'src/app/services/experiment.service';
 
 @Component({
   selector: 'app-experiment',
@@ -11,8 +12,10 @@ import { ConfirmDialogComponent } from '../../shared/confirm-dialog.component';
   imports: [RouterOutlet, TimerComponent],
   template: `
     <div class="p-5 min-h-[91%]"> 
-      <app-timer #timer (timerComplete)="onTimerComplete()"></app-timer>
-      <div>
+      <div class="sticky top-0 right-[80%] bg-white p-1 pl-4 shadow-md">
+        <app-timer #timer (timerComplete)="onTimerComplete()"></app-timer>
+      </div>
+      <div class="pt-4">
         <router-outlet></router-outlet>
       </div>
     </div>
@@ -28,6 +31,7 @@ export class ExperimentComponent {
   private readonly router = inject(Router);
   private readonly toast = inject(ToastService);
   private readonly dialog = inject(MatDialog);
+  private readonly experimentService = inject(ExperimentService);
 
   ///
   /// View Model
@@ -44,6 +48,10 @@ export class ExperimentComponent {
 
   public ngOnInit(): void {
     this.router.navigate(['experiment/' + this.pages[this.currentPageIndex]]);
+    this.experimentService.saveExperimentStartTime().subscribe({
+      next: (_) => {},
+      error: (err) => console.error(err)
+    });
   }
 
   ///

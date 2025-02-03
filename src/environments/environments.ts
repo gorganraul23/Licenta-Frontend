@@ -10,5 +10,6 @@ export const environments = {
     sessionRunning: "api/session/running",
     sensorData: "api/sensor-data/session/",
     saveExperiment: "experiments/save",
+    saveExperimentTime: "experiments/save-time",
   },
 };
