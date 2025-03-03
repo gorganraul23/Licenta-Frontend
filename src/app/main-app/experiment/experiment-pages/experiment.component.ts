@@ -65,6 +65,10 @@ export class ExperimentComponent {
       this.timerComponent.resetTimer();
     } else {
       this.toast.showToast('Experiment completed!', 'info')
+      this.experimentService.saveExperimentEndTime().subscribe({
+        next: (_) => {},
+        error: (err) => console.error(err)
+      });
       const dialogConfig = new MatDialogConfig();
       dialogConfig.data = {
         titleText: 'Congratulations! Experiment ended',

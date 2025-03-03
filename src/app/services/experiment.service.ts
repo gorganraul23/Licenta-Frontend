@@ -24,4 +24,9 @@ export class ExperimentService {
     return this.http.post<boolean>(this.apiUrl + saveExperimentStartTimeUrl, {});
   }
 
+  public saveExperimentEndTime(): Observable<boolean> {
+    const saveExperimentEndTimeUrl = environments.apiEndpoints.saveExperimentEndTime;
+    return this.http.post<boolean>(this.apiUrl + saveExperimentEndTimeUrl, {});
+  }
+
 }

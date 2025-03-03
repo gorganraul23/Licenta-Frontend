@@ -1,7 +1,7 @@
 export const environments = {
   production: false,
-  apiUrl: "http://192.168.1.2:8000/",
-  websocketUrl: "ws://192.168.1.2:8000/ws/realtime/",
+  apiUrl: "http://192.168.1.12:8000/",
+  websocketUrl: "ws://192.168.1.12:8000/ws/realtime/",
   apiEndpoints: {
     login: "users/login-web/",
     register: "users/register/",
@@ -11,5 +11,6 @@ export const environments = {
     sensorData: "api/sensor-data/session/",
     saveExperiment: "experiments/save",
     saveExperimentTime: "experiments/save-time",
+    saveExperimentEndTime: "experiments/save-end-time",
   },
 };
